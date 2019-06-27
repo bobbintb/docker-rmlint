@@ -17,7 +17,7 @@ RUN \
         libelf-dev \
         sqlite-libs \
         json-glib-dev
-
+COPY rootfs/ /
 RUN git clone -b develop https://github.com/sahib/rmlint.git
 WORKDIR rmlint
 RUN scons config 
