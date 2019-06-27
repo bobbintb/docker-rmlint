@@ -5,10 +5,18 @@
 FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 ENV PATH /rmlint:$PATH
 
-RUN apk-install build-base python
-RUN apk-install git scons glib glib-dev
-RUN apk-install libelf libelf-dev
-RUN apk-install sqlite-libs json-glib-dev
+RUN \
+    add-pkg --virtual build-dependencies \
+        build-base \
+        python \
+        git \
+        scons \
+        glib \
+        glib-dev \
+        libelf \
+        libelf-dev \
+        sqlite-libs \
+        json-glib-dev
 
 RUN git clone -b develop https://github.com/sahib/rmlint.git
 WORKDIR rmlint
