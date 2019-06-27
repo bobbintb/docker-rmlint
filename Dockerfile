@@ -4,6 +4,7 @@
 
 FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 ENV PATH /rmlint:$PATH
+ENV APP_NAME="rmlint"
 
 RUN \
     add-pkg --virtual build-dependencies \
