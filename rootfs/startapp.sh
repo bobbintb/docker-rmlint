@@ -1,2 +1,2 @@
 #!/usr/bin/with-contenv sh
-cd /storage
+/usr/bin/rmlint --gui
