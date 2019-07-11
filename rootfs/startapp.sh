@@ -1,2 +1,2 @@
 #!/usr/bin/with-contenv sh
-/usr/bin/rmlint --gui
+sleep 9999
