@@ -42,4 +42,4 @@ RUN mkdir -p /etc/x11docker && \
     echo "x11docker:-:1999:1999:x11docker,,,:/tmp:/bin/sh" >> /etc/passwd && \
     echo "x11docker:-:1999:" >> /etc/group
 
-CMD openbox
+#CMD openbox
