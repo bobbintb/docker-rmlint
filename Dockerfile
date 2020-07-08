@@ -31,7 +31,6 @@ WORKDIR rmlint
 RUN scons config 
 RUN scons DEBUG=1
 RUN scons DEBUG=1 --prefix=/usr install
-ADD /apk /apk
 RUN cp /apk/.abuild/-58b83ac3.rsa.pub /etc/apk/keys
 RUN apk --no-cache add x11vnc
 RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
