@@ -1,32 +1,28 @@
 # Rmlint
-# VERSION 0.0.1
+# VERSION 0.0.2
 # Website: https://github.com/bobbintb/docker-rmlint
 
-FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
+FROM alpine:latest
 ENV PATH /rmlint:$PATH
 ENV APP_NAME="rmlint"
 
-RUN add-pkg build-base \
-          python \
+RUN apk add build-base \
           git \
           scons \
           glib \
           glib-dev \
           libelf \
-          libelf-dev \
           sqlite-libs \
           json-glib-dev \
           gtk+3.0 \
           librsvg \
-          py-gobject \
-          py-sphinx \
+          py3-sphinx \
           elfutils \
           libc6-compat \
           py-cairo \
           dconf \
           gtksourceview \
           python3 \
-          py-gobject3 \
           py3-gobject3 \
           polkit
 COPY rootfs/ /
