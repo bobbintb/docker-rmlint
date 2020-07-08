@@ -31,4 +31,4 @@ WORKDIR rmlint
 RUN scons config 
 RUN scons DEBUG=1
 RUN scons DEBUG=1 --prefix=/usr install
-CMD ["/bin/sh"]
+CMD ["sleep 9999"]
