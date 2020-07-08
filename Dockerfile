@@ -44,4 +44,3 @@ WORKDIR /home/alpine
 EXPOSE 5901
 USER alpine
 CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
-CMD ["rmlint --gui"]
