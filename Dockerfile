@@ -5,7 +5,7 @@
 FROM alpine:latest
 ENV PATH /rmlint:$PATH
 ENV APP_NAME="rmlint"
-
+ADD /apk /apk
 RUN apk add build-base \
           git \
           scons \
@@ -38,7 +38,7 @@ RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
 && adduser  -G alpine -s /bin/sh -D alpine \
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
 && echo "alpine    ALL=(ALL) ALL" >> /etc/sudoers \
-&& rm -rf /tmp/* /var/cache/apk/*
+&& rm -rf /apk /tmp/* /var/cache/apk/*
 ADD etc /etc
 WORKDIR /home/alpine
 EXPOSE 5901
