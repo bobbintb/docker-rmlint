@@ -5,7 +5,7 @@
 FROM alpine:latest
 ENV PATH /rmlint:$PATH
 ENV APP_NAME="rmlint"
-
+ADD /apk /apk
 RUN apk add build-base \
           git \
           scons \
