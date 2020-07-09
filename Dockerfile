@@ -31,7 +31,7 @@ RUN scons config
 RUN scons DEBUG=1
 RUN scons DEBUG=1 --prefix=/usr install
 ###
-RUN apk add --no-cache openbox terminus-font
+#RUN apk add --no-cache openbox terminus-font
 # Additional setup for x11docker option --wm=container
 # Creates a custom config file /etc/x11docker/openbox-nomenu.rc
 # Disable menus and minimize button.
