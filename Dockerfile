@@ -43,17 +43,17 @@ RUN mkdir -p /etc/x11docker && \
     echo "x11docker:-:1999:" >> /etc/group
 CMD openbox
 
-#ADD /apk /apk
-#RUN cp /apk/.abuild/-58b83ac3.rsa.pub /etc/apk/keys
-#RUN apk --no-cache add x11vnc
-#RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
-#&& addgroup alpine \
-#&& adduser  -G alpine -s /bin/sh -D alpine \
-#&& echo "alpine:alpine" | /usr/sbin/chpasswd \
-#&& echo "alpine    ALL=(ALL) ALL" >> /etc/sudoers \
-#&& rm -rf /apk /tmp/* /var/cache/apk/*
-#ADD etc /etc
-#WORKDIR /home/alpine
-#EXPOSE 5901
-#USER alpine
-#CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+ADD /apk /apk
+RUN cp /apk/.abuild/-58b83ac3.rsa.pub /etc/apk/keys
+RUN apk --no-cache add x11vnc
+RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
+&& addgroup alpine \
+&& adduser  -G alpine -s /bin/sh -D alpine \
+&& echo "alpine:alpine" | /usr/sbin/chpasswd \
+&& echo "alpine    ALL=(ALL) ALL" >> /etc/sudoers \
+&& rm -rf /apk /tmp/* /var/cache/apk/*
+ADD etc /etc
+WORKDIR /home/alpine
+EXPOSE 5901
+USER alpine
+CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
