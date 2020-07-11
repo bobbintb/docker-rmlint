@@ -24,7 +24,6 @@ RUN apk add build-base \
           python3 \
           py3-gobject3 \
           polkit
-COPY rootfs/ /
 RUN git clone -b develop https://github.com/sahib/rmlint.git
 WORKDIR rmlint
 RUN scons config 
