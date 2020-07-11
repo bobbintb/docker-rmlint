@@ -6,6 +6,7 @@ FROM alpine:latest
 ENV PATH /rmlint:$PATH
 ENV APP_NAME="rmlint"
 RUN apk add build-base \
+          go \
           git \
           scons \
           glib \
@@ -30,6 +31,11 @@ WORKDIR rmlint
 RUN scons config 
 RUN scons DEBUG=1
 RUN scons DEBUG=1 --prefix=/usr install
+
+RUN go get github.com/geek1011/easy-novnc
+RUN cd /home/alpine/go/src/github.com/geek1011/easy-novnc/
+RUN go build
+
 
 RUN apk add --no-cache openbox terminus-font
 # Additional setup for x11docker option --wm=container
