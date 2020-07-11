@@ -1,58 +1,32 @@
-# Rmlint
-# VERSION 0.0.2
-# Website: https://github.com/bobbintb/docker-rmlint
+FROM golang:1.14-buster AS easy-novnc-build
+WORKDIR /src
+RUN go mod init build && \
+    go get github.com/geek1011/easy-novnc@v1.1.0 && \
+    go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 
-FROM alpine:latest
-ENV PATH /rmlint:$PATH
-ENV APP_NAME="rmlint"
-RUN apk add build-base \
-          git \
-          scons \
-          glib \
-          glib-dev \
-          libelf \
-          sqlite-libs \
-          json-glib-dev \
-          gtk+3.0 \
-          librsvg \
-          py3-sphinx \
-          elfutils \
-          libc6-compat \
-          py-cairo \
-          dconf \
-          gtksourceview \
-          python3 \
-          py3-gobject3 \
-          polkit
-RUN git clone -b develop https://github.com/sahib/rmlint.git
-WORKDIR rmlint
-RUN scons config 
-RUN scons DEBUG=1
-RUN scons DEBUG=1 --prefix=/usr install
+FROM debian:buster
 
-RUN apk add --no-cache openbox terminus-font
-# Additional setup for x11docker option --wm=container
-# Creates a custom config file /etc/x11docker/openbox-nomenu.rc
-# Disable menus and minimize button.
-RUN mkdir -p /etc/x11docker && \
-    cp /etc/xdg/openbox/rc.xml /etc/x11docker/openbox-nomenu.rc && \
-    sed -i /ShowMenu/d    /etc/x11docker/openbox-nomenu.rc && \
-    sed -i s/NLIMC/NLMC/  /etc/x11docker/openbox-nomenu.rc && \
-    echo "x11docker:-:1999:1999:x11docker,,,:/tmp:/bin/sh" >> /etc/passwd && \
-    echo "x11docker:-:1999:" >> /etc/group
-CMD openbox
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu && \
+    rm -rf /var/lib/apt/lists && \
+    mkdir -p /usr/share/desktop-directories
 
-ADD /apk /apk
-RUN cp /apk/.abuild/-58b83ac3.rsa.pub /etc/apk/keys
-RUN apk --no-cache add x11vnc
-RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
-&& addgroup alpine \
-&& adduser  -G alpine -s /bin/sh -D alpine \
-&& echo "alpine:alpine" | /usr/sbin/chpasswd \
-&& echo "alpine    ALL=(ALL) ALL" >> /etc/sudoers \
-&& rm -rf /apk /tmp/* /var/cache/apk/*
-ADD etc /etc
-WORKDIR /home/alpine
-EXPOSE 5901
-USER alpine
-CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
+    rm -rf /var/lib/apt/lists
+
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends thunderbird && \
+    rm -rf /var/lib/apt/lists
+
+COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
+COPY menu.xml /etc/xdg/openbox/
+COPY supervisord.conf /etc/
+EXPOSE 8080
+
+RUN groupadd --gid 1000 app && \
+    useradd --home-dir /data --shell /bin/bash --uid 1000 --gid 1000 app && \
+    mkdir -p /data
+VOLUME /data
+
+CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
