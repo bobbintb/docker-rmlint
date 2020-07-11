@@ -31,17 +31,17 @@ RUN scons config
 RUN scons DEBUG=1
 RUN scons DEBUG=1 --prefix=/usr install
 
-RUN apk --no-cache add x11vnc
-RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
-&& addgroup alpine \
-&& adduser  -G alpine -s /bin/sh -D alpine \
-&& echo "alpine:alpine" | /usr/sbin/chpasswd \
-&& echo "alpine    ALL=(ALL) ALL" >> /etc/sudoers \
-&& rm -rf /apk /tmp/* /var/cache/apk/*
-ADD etc /etc
-WORKDIR /home/alpine
-EXPOSE 5901
-USER alpine
+#RUN apk --no-cache add x11vnc
+#RUN apk --no-cache add xvfb openbox xfce4-terminal supervisor sudo \
+#&& addgroup alpine \
+#&& adduser  -G alpine -s /bin/sh -D alpine \
+#&& echo "alpine:alpine" | /usr/sbin/chpasswd \
+#&& echo "alpine    ALL=(ALL) ALL" >> /etc/sudoers \
+#&& rm -rf /apk /tmp/* /var/cache/apk/*
+#ADD etc /etc
+#WORKDIR /home/alpine
+#EXPOSE 5901
+#USER alpine
 
 #WORKDIR /home/alpine
 #RUN go get github.com/geek1011/easy-novnc
