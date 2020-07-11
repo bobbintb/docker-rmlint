@@ -32,7 +32,7 @@ RUN scons DEBUG=1
 RUN scons DEBUG=1 --prefix=/usr install
 
 RUN go get github.com/geek1011/easy-novnc
-RUN cd /home/alpine/go/src/github.com/geek1011/easy-novnc/
+WORKDIR /home/alpine/go/src/github.com/geek1011/easy-novnc/
 RUN go build
 
 
