@@ -22,7 +22,7 @@ RUN apt-get update -y && \
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 ADD etc /etc
 #COPY menu.xml /etc/xdg/openbox/
-COPY supervisord.conf /etc/
+#COPY supervisord.conf /etc/
 EXPOSE 8080
 
 RUN groupadd --gid 1000 app && \
