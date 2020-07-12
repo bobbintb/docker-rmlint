@@ -48,7 +48,7 @@ RUN scons DEBUG=1 --prefix=/usr install
 #    apt-get install -y --no-install-recommends thunderbird && \
 #    rm -rf /var/lib/apt/lists
 
-COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
+#COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 ADD etc /etc
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
