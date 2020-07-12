@@ -15,9 +15,34 @@ RUN apk update && \
     rm -rf /var/lib/apt/lists && \
     mkdir -p /usr/share/desktop-directories
 
-#RUN apt-get update -y && \
-#    apt-get install -y --no-install-recommends lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
-#    rm -rf /var/lib/apt/lists
+RUN apk add lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar gzip bzip2 zip unzip && \
+    rm -rf /var/lib/apt/lists
+
+RUN apk add build-base \
+          git \
+          scons \
+          glib \
+          glib-dev \
+          libelf \
+          sqlite-libs \
+          json-glib-dev \
+          gtk+3.0 \
+          librsvg \
+          py3-sphinx \
+          elfutils \
+          libc6-compat \
+          py-cairo \
+          dconf \
+          gtksourceview \
+          python3 \
+          py3-gobject3 \
+          polkit
+
+RUN git clone -b develop https://github.com/sahib/rmlint.git
+WORKDIR rmlint
+RUN scons config 
+RUN scons DEBUG=1
+RUN scons DEBUG=1 --prefix=/usr install
 
 #RUN apt-get update -y && \
 #    apt-get install -y --no-install-recommends thunderbird && \
