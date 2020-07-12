@@ -59,4 +59,4 @@ RUN groupadd --gid 1000 app && \
     mkdir -p /data
 VOLUME /data
 
-CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
+#CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
