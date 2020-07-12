@@ -1,13 +1,17 @@
-FROM golang:1.14-buster AS easy-novnc-build
+FROM alpine:latest
 WORKDIR /src
+
+RUN apk add go
+
+
+
+
 RUN go mod init build && \
     go get github.com/geek1011/easy-novnc@v1.1.0 && \
     go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 
-FROM debian:buster
-
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu && \
+    apt-get install -y --no-install-recommends openbox supervisor gosu && \
     rm -rf /var/lib/apt/lists && \
     mkdir -p /usr/share/desktop-directories
 
