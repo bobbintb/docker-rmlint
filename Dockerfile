@@ -55,7 +55,7 @@ ADD etc /etc
 #COPY supervisord.conf /etc/
 EXPOSE 8080
 
-RUN adduser -h /data --shell /bin/bash --uid 1000 -g 1000 app && \
+RUN adduser -D -h /data --shell /bin/bash --uid 1000 -g 1000 app && \
     mkdir -p /data
 VOLUME /data
 
