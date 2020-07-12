@@ -46,7 +46,8 @@ RUN scons DEBUG=1 --prefix=/usr install
 
 #RUN apt-get update -y && \
 #    apt-get install -y --no-install-recommends thunderbird && \
-#    rm -rf /var/lib/apt/lists
+
+RUN rm -rf /var/lib/apt/lists
 
 #COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 ADD etc /etc
@@ -54,9 +55,8 @@ ADD etc /etc
 #COPY supervisord.conf /etc/
 EXPOSE 8080
 
-#RUN groupadd --gid 1000 app && \
-#    useradd --home-dir /data --shell /bin/bash --uid 1000 --gid 1000 app && \
-#    mkdir -p /data
-#VOLUME /data
+RUN adduser -h /data --shell /bin/bash --uid 1000 -g 1000 app && \
+    mkdir -p /data
+VOLUME /data
 
-#CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
+CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec su-exec app supervisord"]
