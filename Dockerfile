@@ -27,7 +27,7 @@ RUN scons config
 RUN scons DEBUG=1
     # Install (and build if necessary). For releases you can omit DEBUG=1
 RUN sudo scons DEBUG=1 --prefix=/usr install
-    rm -rf /var/lib/apt/lists
+RUN rm -rf /var/lib/apt/lists
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 ADD etc /etc
