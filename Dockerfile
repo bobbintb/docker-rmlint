@@ -16,6 +16,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists
 
 #rmlint install
+RUN apt-get update
 RUN apt-get install git scons python3-sphinx python3-nose gettext build-essential
     # Optional dependencies for more features:
 RUN apt-get install libelf-dev libglib2.0-dev libblkid-dev libjson-glib-1.0 libjson-glib-dev
