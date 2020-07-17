@@ -21,7 +21,7 @@ RUN apt-get install -y --no-install-recommends git scons python3-sphinx python3-
     # Optional dependencies for more features:
 RUN apt-get install -y --no-install-recommends libelf-dev libglib2.0-dev libblkid-dev libjson-glib-1.0 libjson-glib-dev
     # Optional dependencies for the GUI:
-RUN apt-get install -y --no-install-recommends python3-gi gir1.2-rsvg gir1.2-gtk-3.0 python-cairo gir1.2-polkit-1.0 gir1.2-gtksource-3.0 sudo
+RUN apt-get install -y --no-install-recommends python3-gi gir1.2-rsvg gir1.2-gtk-3.0 python3-cairo gir1.2-polkit-1.0 gir1.2-gtksource-3.0 sudo
 RUN git clone https://github.com/sahib/rmlint.git
 WORKDIR rmlint/
 RUN scons config
