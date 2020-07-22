@@ -17,7 +17,7 @@ RUN apt-get update -y && \
 
 #rmlint install
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends git scons python3-sphinx python3-nose gettext build-essential
+RUN apt-get install -y --no-install-recommends git scons python3-sphinx python3-gi-cairo python3-nose gettext build-essential
     # Optional dependencies for more features:
 RUN apt-get install -y --no-install-recommends libelf-dev libglib2.0-dev libblkid-dev libjson-glib-1.0 libjson-glib-dev
     # Optional dependencies for the GUI:
